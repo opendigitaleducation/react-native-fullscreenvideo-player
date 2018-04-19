@@ -67,6 +67,7 @@ All other props are passed to the react-native-video component.
 - [ ] Add volume control
 - [X] Add fullscreen button
   - [X] Add fullscreen button for android
+  - [X] Fullscreen mode playing from current duration - Android
 - [ ] Add loader
 
 ## Setting up fullscreen on Android
@@ -98,4 +99,6 @@ Make a folder in your ```android\app\src\main\res``` directory and name it ```la
 If you want to remove the action bar, change your theme or change the theme for your activity from the manifest     
 
 And then your fullscreen should be working and ready to go!
+
+
 
