@@ -52,6 +52,8 @@ public class VideoActivity extends AppCompatActivity {
             myVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 public void onPrepared(MediaPlayer mp) {
                     progressDialog.dismiss();
+                    if(BridgeModule.duration!=0)
+                     myVideoView.seekTo(BridgeModule.duration);
                     myVideoView.start();
                 }
             });
