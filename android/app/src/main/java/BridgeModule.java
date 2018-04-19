@@ -8,7 +8,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-
+public static int duration;
 public class BridgeModule extends ReactContextBaseJavaModule{
     public BridgeModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -19,7 +19,8 @@ public class BridgeModule extends ReactContextBaseJavaModule{
         return "BridgeModule";
     }
     @ReactMethod
-    public void showFullscreen(String videoUri) {
+    public void showFullscreen(String videoUri,,int duraitonToSeek) {
+        duration=duraitonToSeek;
         Context context = getReactApplicationContext();
         Intent intent = new Intent(context, VideoActivity.class); // mContext got from your overriden constructor
         intent.putExtra("VIDEO_URL",videoUri);
