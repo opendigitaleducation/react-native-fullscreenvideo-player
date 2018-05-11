@@ -8,8 +8,9 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-public static int duration;
+
 public class BridgeModule extends ReactContextBaseJavaModule{
+    public static int duration;
     public BridgeModule(ReactApplicationContext reactContext) {
         super(reactContext);
     }
