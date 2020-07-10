@@ -407,13 +407,15 @@ export default class VideoPlayer extends Component {
             />
           </TouchableOpacity>
         )}
-        <TouchableOpacity onPress={this.onToggleFullScreen} style={customStyles.controlButton}>
-          <Icon
-            style={[styles.extraControl, customStyles.controlIcon]}
-            name="fullscreen"
-            size={32}
-          />
-        </TouchableOpacity>
+        {this.props.disableFullscreen ? null : (
+          <TouchableOpacity onPress={this.onToggleFullScreen} style={customStyles.controlButton}>
+            <Icon
+              style={[styles.extraControl, customStyles.controlIcon]}
+              name="fullscreen"
+              size={32}
+            />
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
@@ -432,7 +434,6 @@ export default class VideoPlayer extends Component {
           {...props}
           style={[
             styles.video,
-            this.getSizeStyles(),
             style,
             customStyles.video,
           ]}
@@ -453,32 +454,24 @@ export default class VideoPlayer extends Component {
         >
           <TouchableOpacity style={styles.overlayButton} onPress={this.showControls} />
         </View>
-        {((!this.state.isPlaying) || this.state.isControlsVisible)
-          ? this.renderControls() : this.renderSeekBar(true)}
+        {(this.props.type === "audio" || (this.state.isStarted && (!this.state.isPlaying || this.state.isControlsVisible)))
+          ? this.renderControls()
+          : null
+        }
+        {this.props.type === "video" && this.props.loaded && !this.state.isStarted
+        ? <View style={{position:"absolute", width: "100%", height: "100%", justifyContent: "center", alignItems: "center"}}>
+            {this.renderStartButton()}
+          </View>
+        : null
+        }
       </View>
     );
-  }
-
-  renderContent() {
-    const { thumbnail, style } = this.props;
-    const { isStarted } = this.state;
-
-    if (!isStarted && thumbnail) {
-      return this.renderThumbnail();
-    } else if (!isStarted) {
-      return (
-        <View style={[styles.preloadingPlaceholder, this.getSizeStyles(), style]}>
-          {this.renderStartButton()}
-        </View>
-      );
-    }
-    return this.renderVideo();
   }
 
   render() {
     return (
       <View onLayout={this.onLayout} style={this.props.customStyles.wrapper}>
-        {this.renderContent()}
+        {this.renderVideo()}
       </View>
     );
   }
